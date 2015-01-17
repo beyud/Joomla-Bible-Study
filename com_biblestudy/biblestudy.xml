@@ -7,10 +7,10 @@
     <!-- Generic Metadata -->
     <name>COM_BIBLESTUDY</name>
     <author>Joomla Bible Study Team</author>
-    <copyright>(C) 2007 - 2013 Joomla Bible Study Team All rights reserved</copyright>
+    <copyright>(C) 2007 - 2015 Joomla Bible Study Team All rights reserved</copyright>
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-    <version>8.0.8</version>
-    <creationDate>Sep 10, 2014</creationDate>
+    <version>8.0.9-dev</version>
+    <creationDate>Jan 17, 2015</creationDate>
     <authorEmail>info@joomlabiblestudy.org</authorEmail>
     <authorUrl>http://www.joomlabiblestudy.org</authorUrl>
     <description>JBS_INS_XML_DESCRIPTION</description>
