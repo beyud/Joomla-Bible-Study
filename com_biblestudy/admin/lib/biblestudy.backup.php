@@ -163,8 +163,20 @@ class JBSExport
 						$data[] = $db->qn($key) . "=NULL";
 					}
 					else
+					switch ($table)
 					{
-						$data[] = $db->qn($key) . "=" . $db->q(trim(preg_replace('/\s\s+/', '', $value)));
+						case '#__bsms_studies':
+							$data[] = $db->qn($key) . "=" . $db->q(trim(preg_replace('/\s\s+/', '', $value)));
+							break;
+						case '#__bsms_teachers':
+							$data[] = $db->qn($key) . "=" . $db->q(trim(preg_replace('/\s\s+/', '', $value)));
+							break;
+						case '#__bsms_series':
+							$data[] = $db->qn($key) . "=" . $db->q(trim(preg_replace('/\s\s+/', '', $value)));
+							break;
+						default:
+							$data[] = $db->qn($key) . "=" . $db->q($value);
+							break;
 					}
 				}
 				$export .= implode(',', $data);
