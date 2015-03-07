@@ -170,11 +170,6 @@ class BiblestudyModelMediafile extends JModelAdmin
 	 */
 	public function getForm($data = array(), $loadData = true)
 	{
-		if (empty($data))
-		{
-			$this->getItem();
-		}
-
 		// Get the form.
 		// @TODO Rename the form to "media" instead of mediafile
 		$form = $this->loadForm('com_biblestudy.mediafile', 'mediafile', array('control' => 'jform', 'load_data' => $loadData));
@@ -196,6 +191,11 @@ class BiblestudyModelMediafile extends JModelAdmin
 		else
 		{
 			$id = $jinput->get('id', 0);
+		}
+
+		if (empty($data))
+		{
+			$this->getItem($id);
 		}
 
 		$user = JFactory::getUser();

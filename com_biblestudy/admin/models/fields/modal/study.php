@@ -35,6 +35,7 @@ class JFormFieldModal_Study extends JFormField
 	 */
 	protected function getInput()
 	{
+		die;
 		// Load the modal behavior script.
 		JHtml::_('behavior.modal', 'a.modal');
 

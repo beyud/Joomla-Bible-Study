@@ -21,35 +21,29 @@ use Joomla\Registry\Registry;
 class BiblestudyViewMediafileform extends JViewLegacy
 {
 
-	/** @var  string Upload Folder */
-	public $upload_folder;
+	/** @var object */
+	public $canDo;
 
-	/** @var  string Upload Folder */
-	public $upload_server;
+	/** @var Registry */
+	public $admin_params;
 
-	/** @var JForm Form */
+	/** @var Registry */
+	public $params;
+
+	/** @var object */
 	protected $form;
 
-	/** @var object Item */
+	/** @var object */
+	protected $media_form;
+
+	/** @var object */
 	protected $item;
 
-	/** @var string Return Page */
-	protected $return_page;
-
-	/** @var array State */
+	/** @var Registry */
 	protected $state;
 
-	/** @var array Admin */
+	/** @var object */
 	protected $admin;
-
-	/** @var  Registry Params */
-	protected $params;
-
-	/** @var  Registry Admin Params */
-	protected $admin_params;
-
-	/** @var  string Can Do */
-	protected $canDo;
 
 	/**
 	 * Execute and display a template script.
@@ -60,14 +54,16 @@ class BiblestudyViewMediafileform extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
+		$this->form         = $this->get("Form");
+		$this->media_form   = $this->get("MediaForm");
+		$this->item         = $this->get("Item");
+		$this->state        = $this->get("State");
+		$this->canDo        = JBSMBibleStudyHelper::getActions($this->item->id, 'mediafile');
+		$this->admin_params = $this->state->get('admin');
 
-		$app  = JFactory::getApplication();
 
-		// Get model data.
-		$this->state       = $this->get('State');
-		$this->item        = $this->get('Item');
-		$this->form        = $this->get('Form');
-		$this->return_page = $this->get('ReturnPage');
+		// Needed to load the article field type for the article selector
+		JFormHelper::addFieldPath(JPATH_ADMINISTRATOR . '/components/com_content/models/fields/modal');
 
 		$this->canDo = JBSMBibleStudyHelper::getActions($this->item->id, 'mediafilesedit');
 
@@ -78,7 +74,7 @@ class BiblestudyViewMediafileform extends JViewLegacy
 
 		if (!$this->canDo->get('core.edit'))
 		{
-			$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 
 			return;
 		}

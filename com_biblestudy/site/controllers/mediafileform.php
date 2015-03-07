@@ -238,6 +238,7 @@ class BiblestudyControllerMediafileform extends JControllerForm
 		}
 
 		$itemId = $this->input->getInt('Itemid');
+		$id     = $this->input->getInt('id');
 		$return = $this->getReturnPage();
 		$catId  = $this->input->getInt('catid', null, 'get');
 
@@ -249,6 +250,11 @@ class BiblestudyControllerMediafileform extends JControllerForm
 		if ($catId)
 		{
 			$append .= '&catid=' . $catId;
+		}
+
+		if ($id)
+		{
+			$append .= '&a_id=' . (int) $id;
 		}
 
 		if ($return)
