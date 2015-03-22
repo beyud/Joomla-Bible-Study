@@ -111,24 +111,20 @@ class BiblestudyModelSeriesdisplays extends JModelList
 
 		if (empty($orderparam))
 		{
-			$orderparam = $t_params->get('default_order', '1');
+			$order = $t_params->get('series_list_order', 'ASC');
 		}
-		if ($orderparam == 2)
-		{
-			$order = "ASC";
-		}
-		else
-		{
-			$order = "DESC";
-		}
+		
 		$orderstate = $this->getState('filter.order');
 
 		if (!empty($orderstate))
 		{
 			$order = $orderstate;
 		}
-
-		$query->order('series_text ' . $order);
+		$orderfield = $t_params->get('series_order_field');
+		if (empty($orderfield))
+		{$query->order('series_text ' . $order);}
+		else
+		{$query->order($orderfield.' '. $order);}
 
 		return $query;
 	}
@@ -143,7 +139,9 @@ class BiblestudyModelSeriesdisplays extends JModelList
 		$mainframe     = JFactory::getApplication();
 		$input         = new JInput;
 		$option        = $input->get('option', '', 'cmd');
-		$params        = JComponentHelper::getParams($option);
+		//$params        = JComponentHelper::getParams($option);
+		$template_params = JBSMParams::getTemplateparams();
+		$params        = $template_params->params;
 		$filter_series = $mainframe->getUserStateFromRequest($option . 'filter_series', 'filter_series', 0, 'int');
 		$where         = array();
 		$where[]       = ' se.published = 1';
